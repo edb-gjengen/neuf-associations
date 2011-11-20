@@ -1,6 +1,6 @@
 <?php
 /* Add custom columns. */
-function neuf_societies_change_columns( $cols ) {
+function neuf_associations_change_columns( $cols ) {
 	$custom_cols = array(
 		'cb'        => '<input type="checkbox" />',
 		'title'     => __( 'Forening', 'trans' ),
@@ -12,13 +12,13 @@ function neuf_societies_change_columns( $cols ) {
 	);
 	return $custom_cols;
 }
-add_filter( "manage_society_posts_columns", "neuf_societies_change_columns" );
+add_filter( "manage_association_posts_columns", "neuf_associations_change_columns" );
 
 // Add values to the custom columns
-function neuf_societies_custom_columns( $column, $post_id ) {
+function neuf_associations_custom_columns( $column, $post_id ) {
 	switch ( $column ) {
 	case "homepage":
-		$homepage = get_post_meta( $post_id, '_neuf_societies_homepage', true );
+		$homepage = get_post_meta( $post_id, '_neuf_associations_homepage', true );
 		// default to permalink if not set
 		$homepage = $homepage ? $homepage : get_permalink( $post_id );
 		echo '<a href="'.$homepage.'" alt="'.$homepage.'" target="_blank">'.$homepage.'</a>';
@@ -30,10 +30,10 @@ function neuf_societies_custom_columns( $column, $post_id ) {
 		break;
 	}
 }
-add_action( "manage_posts_custom_column" , "neuf_societies_custom_columns", 10, 2 );
+add_action( "manage_posts_custom_column" , "neuf_associations_custom_columns", 10, 2 );
 
 // Make these columns sortable
-function neuf_societies_sortable_columns( $cols ) {
+function neuf_associations_sortable_columns( $cols ) {
 	/*$custom_cols = array(
 		'starttime' => 'starttime',
 		'endtime'   => 'endtime',
@@ -42,30 +42,30 @@ function neuf_societies_sortable_columns( $cols ) {
 	);*/
 	return $cols;
 }
-add_filter( "manage_edit-society_sortable_columns", "neuf_societies_sortable_columns" );
+add_filter( "manage_edit-association_sortable_columns", "neuf_associations_sortable_columns" );
 
 /* Add metaboxes (with styles) */
-function add_societies_metaboxes() {
+function add_associations_metaboxes() {
 	add_meta_box(
-		'neuf_societies_div',
+		'neuf_associations_div',
 		__('Foreningsinformasjon'),
-		'neuf_societies_div',
-		'society',
+		'neuf_associations_div',
+		'association',
 		'side'
 	);
 }
 
 
 /* Metabox with additional info. */
-function neuf_societies_div(){
+function neuf_associations_div(){
 	global $post;
 
-	$society_homepage = get_post_meta( $post->ID, '_neuf_societies_homepage', true );
+	$association_homepage = get_post_meta( $post->ID, '_neuf_associations_homepage', true );
 	?>
 	<div class="misc-pub-section misc-pub-section-last">
-		<label for="_neuf_societies_homepage">Hjemmeside:</label>
-		<input type="text" name="_neuf_societies_homepage" value="<?php echo $society_homepage ? $society_homepage : ""; ?>" />
-		<?php wp_nonce_field( 'neuf_societies_nonce', 'neuf_societies_nonce' ); ?>
+		<label for="_neuf_associations_homepage">Hjemmeside:</label>
+		<input type="text" name="_neuf_associations_homepage" value="<?php echo $association_homepage ? $association_homepage : ""; ?>" />
+		<?php wp_nonce_field( 'neuf_associations_nonce', 'neuf_associations_nonce' ); ?>
 	</div>
 	<?php
 }
