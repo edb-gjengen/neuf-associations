@@ -63,14 +63,14 @@ function neuf_societies_save_postdata( $post_id ) {
 		if ( !current_user_can( 'edit_post', $post_id ) )
 			return;
 	}
+	// OK, we're authenticated.
 
-	// OK, we're authenticated: we need to find and save the data
-
-	$mydata = $_POST['_neuf_societies_homepage'];
+	// prefix with protocol if not present
+	$mydata = esc_url( $_POST['_neuf_societies_homepage'] );
 
 	// Do something with $mydata 
 	// probably using add_post_meta(), update_post_meta(), or 
 	// a custom table (see Further Reading section below)
-	add_post_meta($post_id, '_neuf_societies_homepage', $mydata, true);
+	update_post_meta($post_id, '_neuf_societies_homepage', $mydata);
 }
 ?>
