@@ -6,9 +6,7 @@ function neuf_associations_change_columns( $cols ) {
 		'title'     => __( 'Forening', 'trans' ),
 		'image'     => __( 'Bilde', 'trans' ),
 		'homepage'     => __( 'Hjemmeside', 'trans' ),
-		/*'author'    => __( 'Forfatter', 'trans' ),
-		'date'      => __( 'Publiseringsdato', 'trans' ),
-		'type'      => __( 'Type', 'trans' ),*/
+		'type'      => __( 'Type', 'trans' ),
 	);
 	return $custom_cols;
 }
@@ -28,19 +26,19 @@ function neuf_associations_custom_columns( $column, $post_id ) {
 		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'large' );
 		echo '<a href="'.$large_image_url[0].'" alt="'.$large_image_url[0].'">'.$thumb.'</a>';
 		break;
+	case "type":
+		echo get_post_meta( $post_id, '_neuf_associations_type', true );
+		break;
 	}
 }
 add_action( "manage_posts_custom_column" , "neuf_associations_custom_columns", 10, 2 );
 
 // Make these columns sortable
 function neuf_associations_sortable_columns( $cols ) {
-	/*$custom_cols = array(
-		'starttime' => 'starttime',
-		'endtime'   => 'endtime',
+	$custom_cols = array(
 		'type'      => 'type',
-		'venue'     => 'venue',
-	);*/
-	return $cols;
+	);
+	return array_merge($custom_cols, $cols);
 }
 add_filter( "manage_edit-association_sortable_columns", "neuf_associations_sortable_columns" );
 
@@ -60,11 +58,25 @@ function add_associations_metaboxes() {
 function neuf_associations_div(){
 	global $post;
 
+	$association_types = array('Forening', 'Utvalg');
+	$association_type = get_post_meta( $post->ID, '_neuf_associations_type', true );
+
 	$association_homepage = get_post_meta( $post->ID, '_neuf_associations_homepage', true );
 	?>
 	<div class="misc-pub-section misc-pub-section-last">
 		<label for="_neuf_associations_homepage">Hjemmeside:</label>
 		<input type="text" name="_neuf_associations_homepage" value="<?php echo $association_homepage ? $association_homepage : ""; ?>" />
+		<label for="_neuf_associations_type">Type:</label>
+		<select name="_neuf_associations_type">
+		<?php foreach ($association_types as $type) {
+			echo '<option value="'.$type.'"';
+			if($type== $association_type) {
+				echo ' selected="selected"';
+			}
+			echo '>'.$type.'</option>';
+		}
+		?>
+		</select><br />
 		<?php wp_nonce_field( 'neuf_associations_nonce', 'neuf_associations_nonce' ); ?>
 	</div>
 	<?php
