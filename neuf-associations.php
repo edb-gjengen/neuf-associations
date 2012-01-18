@@ -11,6 +11,7 @@
 
 /* TODO (nikolark):
  *  - Pickup stuff from: http://codex.wordpress.org/Post_Types
+ *  - Translate it: http://codex.wordpress.org/I18n_for_WordPress_Developers
  */
 require_once( 'neuf-associations-post-type.php' );
 require_once( 'neuf-associations-admin.php' );
