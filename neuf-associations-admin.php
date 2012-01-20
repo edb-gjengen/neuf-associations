@@ -3,10 +3,10 @@
 function neuf_associations_change_columns( $cols ) {
 	$custom_cols = array(
 		'cb'        => '<input type="checkbox" />',
-		'title'     => __( 'Forening', 'trans' ),
-		'image'     => __( 'Bilde', 'trans' ),
-		'homepage'     => __( 'Hjemmeside', 'trans' ),
-		'type'      => __( 'Type', 'trans' ),
+		'title'     => __( 'Association', 'neuf_assoc' ),
+		'image'     => __( 'Image', 'neuf_assoc' ),
+		'homepage'  => __( 'Website', 'neuf_assoc' ),
+		'type'      => __( 'Type', 'neuf_assoc' ),
 	);
 	return $custom_cols;
 }
@@ -46,7 +46,7 @@ add_filter( "manage_edit-association_sortable_columns", "neuf_associations_sorta
 function add_associations_metaboxes() {
 	add_meta_box(
 		'neuf_associations_div',
-		__('Foreningsinformasjon'),
+		__('Association details', 'neuf_assoc'),
 		'neuf_associations_div',
 		'association',
 		'side'
@@ -58,15 +58,16 @@ function add_associations_metaboxes() {
 function neuf_associations_div(){
 	global $post;
 
+	/* Static types */
 	$association_types = array('Forening', 'Utvalg');
-	$association_type = get_post_meta( $post->ID, '_neuf_associations_type', true );
 
+	$association_type = get_post_meta( $post->ID, '_neuf_associations_type', true );
 	$association_homepage = get_post_meta( $post->ID, '_neuf_associations_homepage', true );
 	?>
 	<div class="misc-pub-section misc-pub-section-last">
-		<label for="_neuf_associations_homepage">Hjemmeside:</label>
+	<label for="_neuf_associations_homepage"><?php _e( 'Website', 'neuf_assoc' ); ?></label>
 		<input type="text" name="_neuf_associations_homepage" value="<?php echo $association_homepage ? $association_homepage : ""; ?>" />
-		<label for="_neuf_associations_type">Type:</label>
+		<label for="_neuf_associations_type"><?php _e( 'Type', 'neuf_assoc' ); ?>:</label>
 		<select name="_neuf_associations_type">
 		<?php foreach ($association_types as $type) {
 			echo '<option value="'.$type.'"';

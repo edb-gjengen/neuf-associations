@@ -2,16 +2,16 @@
 /* Setup the custom post type */
 function neuf_associations_post_type() {
 	$labels = array(
-		'name'                  =>      __( 'Associations'                       ),
-		'singular_name'         =>      __( 'Association'                         ),
-		'add_new'               =>      __( 'Add New Association'                 ),
-		'add_new_item'          =>      __( 'Add New Association'                 ),
-		'edit_item'             =>      __( 'Edit Association'                    ),
-		'new_item'              =>      __( 'Add New Association'                 ),
-		'view_item'             =>      __( 'View Association'                    ),
-		'search_items'          =>      __( 'Search Associations'                ),
-		'not_found'             =>      __( 'No associations found'              ),
-		'not_found_in_trash'    =>      __( 'No associations found in trash'     )
+		'name'                  =>      __( 'Associations', 'neuf_assoc'),
+		'singular_name'         =>      __( 'Association', 'neuf_assoc'),
+		'add_new'               =>      __( 'Add New', 'neuf_assoc'),
+		'add_new_item'          =>      __( 'Add New', 'neuf_assoc'),
+		'edit_item'             =>      __( 'Edit Association', 'neuf_assoc'),
+		'new_item'              =>      __( 'Add New Association', 'neuf_assoc'),
+		'view_item'             =>      __( 'View Association', 'neuf_assoc'),
+		'search_items'          =>      __( 'Search Associations', 'neuf_assoc'),
+		'not_found'             =>      __( 'No associations found', 'neuf_assoc'),
+		'not_found_in_trash'    =>      __( 'No associations found in trash', 'neuf_assoc')
 	);
 	register_post_type(
 		'association',
