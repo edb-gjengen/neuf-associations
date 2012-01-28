@@ -3,7 +3,7 @@
   Plugin Name: neuf-associations
   Plugin URI: http://www.studentersamfundet.no
   Description: Association custom post type
-  Version 0.1
+  Version: 0.2
   Author: EDB-web
   Author URI: http://www.studentersamfundet.no
   License: GPL v2 or later
